@@ -1,0 +1,12 @@
+{
+  "name": "open-corellian-spike",
+  "version": "1.0.0",
+  "description": "Open source card game",
+  "main": "index.js",
+  "author": "Ender Smith",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  }
+}

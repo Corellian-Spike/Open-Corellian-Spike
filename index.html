@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Corellian Spike</title>
+    <style>
+      * { margin: 20; padding: 0; box-sizing: border-box; font: bold 20px Monospace;}
+      body { background-color: #8b4513; }
+    </style>
+  </head>
+  <body>
+    <div id='welcome' style='visibility: hidden;'>
+      <input id='join' />
+    </div>
+    <div id='round'></div>
+    <div id='phase'></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      $(function () {
+        const socket = io();
+        socket.on('welcome', $('#welcome').css('visibility', 'visible'))
+        socket.on('game info public', function(json){
+          const round = `ROUND: ${json.currentRound}/3`
+          const phase = `PHASE: ${json.currentPhase}`
+          $('#round').text(round);
+          $('#phase').text(phase);
+        });
+      });
+    </script>
+  </body>
+</html>
