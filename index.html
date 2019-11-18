@@ -3,28 +3,54 @@
   <head>
     <title>Corellian Spike</title>
     <style>
-      * { margin: 20; padding: 0; box-sizing: border-box; font: bold 20px Monospace;}
+      * { margin: auto; margin-top: 5px ; padding: 5px; box-sizing: border-box; font: bold 20px Monospace;}
       body { background-color: #8b4513; }
+      div {text-align: center}
+      input {text-align: center; width: 300px; padding: 10px;}
+      .button { background-color: #f5deb3; padding: 10px; width: 300px}
     </style>
   </head>
   <body>
-    <div id='welcome' style='visibility: hidden;'>
-      <input id='join' />
-    </div>
-    <div id='round'></div>
-    <div id='phase'></div>
+    <div id="round"></div>
+    <div id="phase"></div>
+    <div id="turn"></div>
+    <div id="deck"></div>
+    <div id="discard"></div>
+    <div id="hand"></div>
+    <div id="credits"></div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
       $(function () {
         const socket = io();
-        socket.on('welcome', $('#welcome').css('visibility', 'visible'))
-        socket.on('game info public', function(json){
-          const round = `ROUND: ${json.currentRound}/3`
-          const phase = `PHASE: ${json.currentPhase}`
+        let id = undefined;
+        let gameCode = undefined;
+        socket.on('check-id', () => {
+          if (id === undefined) {
+            socket.emit('no-id');
+          } else {
+            socket.emit('show-id', id);
+          }
+        });
+        socket.on('new-id', (newId) => {
+          id = newId;
+          socket.emit('show-id', id)
+        });
+        socket.on('gameInfoPublic', (gameInfoPublic)=>{
+          socket.emit('getPlayer', id);
+          const round = `ROUND: ${gameInfoPublic.currentRound}/3`;
+          const phase = `PHASE: ${gameInfoPublic.currentPhase}`;
           $('#round').text(round);
           $('#phase').text(phase);
+        });
+        socket.on('sendPlayer', (playerInfoPrivate)=>{
+          let handText = '';
+          for ( i = 0; i < playerInfoPrivate.hand.length; i++) {
+            handText += `[${playerInfoPrivate.hand[i].value}] `;
+          }
+          $('#hand').text(`HAND: ${handText}`);
+          $('#credits').text(`CREDITS: ${playerInfoPrivate.credits}`);
         });
       });
     </script>
