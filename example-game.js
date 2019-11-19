@@ -117,8 +117,7 @@ console.log('\n', 'round:', game.round, '| phase:', game.phase, '| turn:', game.
 console.log('   (betting not yet implemented)');
 game.loopStep();
 console.log('\n', 'round:', game.round, '| phase:', game.phase, '| turn:', game.turn);
-game.scoreAllHands();
-// console.log(game.winner);
+game.scoreHands();
 console.log('\tplayer 1 hand:', game.table.players[0].hand[0].value, game.table.players[0].hand[1].value, game.table.players[0].hand[2].value, '| sum:', game.table.players[0].sum);
 console.log('\t\tscore:', game.table.players[0].score.name);
 console.log('\tplayer 2 hand:', game.table.players[1].hand[0].value, game.table.players[1].hand[1].value, game.table.players[1].hand[2].value, game.table.players[1].hand[3].value, '| sum:', game.table.players[1].sum);
