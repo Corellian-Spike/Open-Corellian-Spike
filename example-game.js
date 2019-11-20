@@ -43,11 +43,9 @@ let spike = game.table.rollSpikeDice();
 console.log('   SPIKE ROLL:', spike.rollOne, spike.rollTwo);
 if (spike.spikeDiceMatch) {
   console.log('   DICE MATCH, NEW HANDS ARE DRAWN:');
-  console.log('\tdice:', spike.rollOne, spike.rollTwo);
   game.table.spikeHandSwap();
 } else {
   console.log('   DICE DO NOT MATCH, PLAY CONTINUES:');
-  console.log('\tdice:', spike.rollOne, spike.rollTwo);
 }
 console.log('\tplayer 1 hand:', game.table.players[0].hand[0].value, game.table.players[0].hand[1].value, game.table.players[0].hand[2].value, '| sum:', game.table.players[0].sum);
 console.log('\tplayer 2 hand:', game.table.players[1].hand[0].value, game.table.players[1].hand[1].value, '| sum:', game.table.players[1].sum);
@@ -71,13 +69,13 @@ console.log('\tdiscard top:', game.table.discard.top.value);
 console.log('\tplayer 2 hand:', game.table.players[1].hand[0].value, game.table.players[1].hand[1].value, game.table.players[1].hand[2].value, '| sum:', game.table.players[1].sum);
 game.loopStep();
 console.log('\n', 'round:', game.round, '| phase:', game.phase, '| turn:', game.turn);
+spike = game.table.rollSpikeDice();
+console.log('   SPIKE ROLL:', spike.rollOne, spike.rollTwo);
 if (spike.spikeDiceMatch) {
   console.log('   DICE MATCH, NEW HANDS ARE DRAWN:');
-  console.log('\tdice:', spike.rollOne, spike.rollTwo);
   game.table.spikeHandSwap();
 } else {
   console.log('   DICE DO NOT MATCH, PLAY CONTINUES:');
-  console.log('\tdice:', spike.rollOne, spike.rollTwo);
 }
 console.log('\tplayer 1 hand:', game.table.players[0].hand[0].value, game.table.players[0].hand[1].value, game.table.players[0].hand[2].value, '| sum:', game.table.players[0].sum);
 console.log('\tplayer 2 hand:', game.table.players[1].hand[0].value, game.table.players[1].hand[1].value, '| sum:', game.table.players[1].sum);
@@ -99,13 +97,13 @@ console.log('\tplayer2 remaining credits:', game.table.players[1].credits);
 console.log('\tplayer 2 hand:', game.table.players[1].hand[0].value, game.table.players[1].hand[1].value, game.table.players[1].hand[2].value, game.table.players[1].hand[3].value, '| sum:', game.table.players[1].sum);
 game.loopStep();
 console.log('\n', 'round:', game.round, '| phase:', game.phase, '| turn:', game.turn);
+spike = game.table.rollSpikeDice();
+console.log('   SPIKE ROLL:', spike.rollOne, spike.rollTwo);
 if (spike.spikeDiceMatch) {
   console.log('   DICE MATCH, NEW HANDS ARE DRAWN:');
-  console.log('\tdice:', spike.rollOne, spike.rollTwo);
   game.table.spikeHandSwap();
 } else {
   console.log('   DICE DO NOT MATCH, PLAY CONTINUES:');
-  console.log('\tdice:', spike.rollOne, spike.rollTwo);
 }
 console.log('\tplayer 1 hand:', game.table.players[0].hand[0].value, game.table.players[0].hand[1].value, game.table.players[0].hand[2].value, '| sum:', game.table.players[0].sum);
 console.log('\tplayer 2 hand:', game.table.players[1].hand[0].value, game.table.players[1].hand[1].value, '| sum:', game.table.players[1].sum);
