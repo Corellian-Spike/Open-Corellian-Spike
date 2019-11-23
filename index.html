@@ -3,56 +3,75 @@
   <head>
     <title>Corellian Spike</title>
     <style>
-      * { margin: auto; margin-top: 5px ; padding: 5px; box-sizing: border-box; font: bold 20px Monospace;}
-      body { background-color: #8b4513; }
-      div {text-align: center}
-      input {text-align: center; width: 300px; padding: 10px;}
+      * { margin: 0px; padding: 0px; box-sizing: border-box; font: 3vh Monospace;}
+      body { background-color: #8b4512;}
+      div {text-align: left; padding: .5vh; display: flex;}
+      div.spacer {height: 3vh};
+      span{ margin: 1vh; padding: 1vh; flex: .5;}
+      span.action{background-color: #42585e; color: #d1ceca; margin: .25vh; text-align: center; flex: 1}
+      span.label{font-style: italic; font-weight: 900}
+      input {text-align: center; width:3em}
       .button { background-color: #f5deb3; padding: 10px; width: 300px}
+      .plus-card {color: #752020}
+      .minus-card {color: #207020}
+      .sylop-card {color: #003333}
     </style>
   </head>
   <body>
-    <div id="round"></div>
-    <div id="phase"></div>
-    <div id="turn"></div>
-    <div id="deck"></div>
-    <div id="discard"></div>
-    <div id="hand"></div>
-    <div id="credits"></div>
-
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script>
-      $(function () {
-        const socket = io();
-        let id = undefined;
-        let gameCode = undefined;
-        socket.on('check-id', () => {
-          if (id === undefined) {
-            socket.emit('no-id');
-          } else {
-            socket.emit('show-id', id);
-          }
-        });
-        socket.on('new-id', (newId) => {
-          id = newId;
-          socket.emit('show-id', id)
-        });
-        socket.on('gameInfoPublic', (gameInfoPublic)=>{
-          socket.emit('getPlayer', id);
-          const round = `ROUND: ${gameInfoPublic.currentRound}/3`;
-          const phase = `PHASE: ${gameInfoPublic.currentPhase}`;
-          $('#round').text(round);
-          $('#phase').text(phase);
-        });
-        socket.on('sendPlayer', (playerInfoPrivate)=>{
-          let handText = '';
-          for ( i = 0; i < playerInfoPrivate.hand.length; i++) {
-            handText += `[${playerInfoPrivate.hand[i].value}] `;
-          }
-          $('#hand').text(`HAND: ${handText}`);
-          $('#credits').text(`CREDITS: ${playerInfoPrivate.credits}`);
-        });
-      });
-    </script>
+    <div id="phase-container">
+      <span class="label">Phase:</span>
+      <span id="phase">Setup</span>
+    </div>
+    <div id="round-container">
+      <span class="label">Round:</span>
+      <span id="round">0</span>
+    </div>
+    <div id="label-container">
+      <span class="label">Turn:</span>
+      <span id="turn"></span>
+    </div>
+    <div class="spacer"></div>
+    <div id="pot">
+      <span class="label">Pot:</span>
+      <span id="pot-credits">0</span>
+    </div>
+    <div id="sabacc-pot">
+      <span class="label">Sabacc Pot:</span>
+      <span id="sabacc-pot-credits">0</span>
+    </div>
+    <div id="deck">
+      <span class="label">Deck:</span>
+      <span id="deck-top" class="action">[%%]</span>
+    </div>
+    <div id="discard">
+      <span class="label">Discard:</span>
+      <span id="discard-top" class="action">[&nbsp;&nbsp;]</span>
+    </div>
+    <div class="spacer"></div>
+    <div id="player-hand">
+      <span class="label">Your Hand:</span>
+      <span id="card0" class="action"></span>
+      <span id="card1" class="action"></span>
+      <span id="card2" class="action"></span>
+      <span id="card3" class="action"></span>
+      <span id="card4" class="action"></span>
+    </div>
+    <div class="spacer"></div>
+    <div id="player-bank">
+      <span class="label">Your Credits:</span>
+      <span id="player-credits" class="action">0</span>
+    </div>
+    <div>
+      <span id="match" class="action">Match Current Wager</span>
+    </div>
+    <div>
+      <span class="action">
+        <input id="raise-amount"><br />
+        <span id="match-and-raise">Match and Raise</span>
+      </span>
+    </div>
+    <div>
+      <span id="fold" class="action">Fold</span>
+    </div>
   </body>
 </html>
